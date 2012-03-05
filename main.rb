@@ -30,20 +30,28 @@ tweets = Twitter.search("to:silwoodnet")
 tweets.each do |tweet|
   if not currentTweets['ID'].include? tweet.id
     currentTweets['text'].push tweet.text
-    text = tweet.text.split ","
-    text[0].sub('@silwoodnet', '')
-    currentTweets['species'].push text[0]
-    if text.length > 1
-      currentTweets['count'].push text[1]
-      if text.length > 2
-        currentTweets['description'].push text[2]
+    text = tweet.text.sub('@silwoodnet', '')
+    if text.include? ','
+      text = text.split(',')
+      currentTweets['species'].push text[0]
+      if text[1].include? '-'
+        text = text[1].split '-'
+        currentTweets['count'].push text[0].to_i
+        currentTweets['description'].push text[1]
       else
-        currentTweets['description'].push "NA"
-      end
-    else
-      currentTweets['count'].push "NA"
-      currentTweets['description'].push "NA"
-    end
+       currentTweets['count'].push text[1].to_i
+       currentTweets['description'].push "NA"
+     end
+   elsif text.include? '-'
+     text = text.split('-')
+     currentTweets['species'].push text[0]
+     currentTweets['count'].push -99999
+     currentTweets['description'].push text[1]
+   else
+     currentTweets['species'].push text
+     currentTweets['count'].push -99999
+     currentTweets['description'].push "NA"
+   end
     currentTweets['user'].push tweet.from_user
     currentTweets['ID'].push tweet.id
     if tweet.geo
@@ -59,6 +67,6 @@ end
 #Write out new set of tweets
 File.open("tweetLog.txt", 'w') do |f|
   currentTweets['ID'].each_index do |i, x|
-    f.write(currentTweets['species'][i] + '^' + currentTweets['count'][i] + '^' + currentTweets['lat'][i].to_s + '^' + currentTweets['long'][i].to_s + '^' + currentTweets['ID'][i].to_s + '^' + currentTweets['description'][i] + '^' + currentTweets['user'][i] + '^' + currentTweets['text'][i] + "\n")
+    f.write(currentTweets['species'][i] + '^' + currentTweets['count'][i].to_s + '^' + currentTweets['lat'][i].to_s + '^' + currentTweets['long'][i].to_s + '^' + currentTweets['ID'][i].to_s + '^' + currentTweets['description'][i] + '^' + currentTweets['user'][i] + '^' + currentTweets['text'][i] + "\n")
   end
 end

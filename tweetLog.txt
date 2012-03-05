@@ -1,2 +1,5 @@
-@silwoodnet blue tit (juvenile)^ 1^-9999999.9^-9999999.9^176770893853376512^ by an oak tree^willpearse^@silwoodnet blue tit (juvenile), 1, by an oak tree
-@silwoodnet Dexter^3^51.4102^-0.667^176766686412800002^ this is a test... http://t.co/SgajGKRj^willpearse^@silwoodnet Dexter,3, this is a test... http://t.co/SgajGKRj
+ horse^5^-9999999.9^-9999999.9^176782541116805122^NA^willpearse^@silwoodnet horse,5,made up
+ fairy cake ^-99999^-9999999.9^-9999999.9^176782481415077888^ in a wood!^willpearse^@silwoodnet fairy cake - in a wood!
+ coal tit^3^-9999999.9^-9999999.9^176782392294522881^NA^willpearse^@silwoodnet coal tit,3
+ blue tit (juvenile)^1^-9999999.9^-9999999.9^176770893853376512^NA^willpearse^@silwoodnet blue tit (juvenile), 1, by an oak tree
+ Dexter^3^51.4102^0.0^176766686412800002^NA^willpearse^@silwoodnet Dexter,3, this is a test... http://t.co/SgajGKRj
