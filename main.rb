@@ -27,8 +27,10 @@ end
 tweets = Twitter.search("to:silwoodnet")
 
 #Search through for un-added 'silnet' tweets
+currentNew = 0
 tweets.each do |tweet|
   if not currentTweets['ID'].include? tweet.id
+    currentNew += 1
     currentTweets['text'].push tweet.text
     text = tweet.text.sub('@silwoodnet', '')
     if text.include? ','
@@ -65,8 +67,13 @@ tweets.each do |tweet|
 end
 
 #Write out new set of tweets
-File.open("tweetLog.txt", 'w') do |f|
-  currentTweets['ID'].each_index do |i, x|
-    f.write(currentTweets['species'][i] + '^' + currentTweets['count'][i].to_s + '^' + currentTweets['lat'][i].to_s + '^' + currentTweets['long'][i].to_s + '^' + currentTweets['ID'][i].to_s + '^' + currentTweets['description'][i] + '^' + currentTweets['user'][i] + '^' + currentTweets['text'][i] + "\n")
+if currentNew != 0
+  puts "Read #{currentNew} new tweets"
+  File.open("tweetLog.txt", 'w') do |f|
+    currentTweets['ID'].each_index do |i, x|
+      f.write(currentTweets['species'][i] + '^' + currentTweets['count'][i].to_s + '^' + currentTweets['lat'][i].to_s + '^' + currentTweets['long'][i].to_s + '^' + currentTweets['ID'][i].to_s + '^' + currentTweets['description'][i] + '^' + currentTweets['user'][i] + '^' + currentTweets['text'][i] + "\n")
+    end
   end
+else
+  puts "No new tweets read; exiting"
 end

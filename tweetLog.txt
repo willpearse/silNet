@@ -3,3 +3,5 @@
  coal tit^3^-9999999.9^-9999999.9^176782392294522881^NA^willpearse^@silwoodnet coal tit,3
  blue tit (juvenile)^1^-9999999.9^-9999999.9^176770893853376512^NA^willpearse^@silwoodnet blue tit (juvenile), 1, by an oak tree
  Dexter^3^51.4102^0.0^176766686412800002^NA^willpearse^@silwoodnet Dexter,3, this is a test... http://t.co/SgajGKRj
+ jackdaw (flying)^1^-9999999.9^-9999999.9^176960218356396032^NA^willpearse^@silwoodnet jackdaw (flying),1,dead tree by Estates Office
+ jackdaw^3^-9999999.9^-9999999.9^176991178556846080^NA^willpearse^@silwoodnet jackdaw,3,#purviswindow
