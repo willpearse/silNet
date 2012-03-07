@@ -8,7 +8,7 @@ require 'twitter'
 #Pull out the previously recorded tweets
 # - make this more pleasant to read....
 currentTweets = Hash.new
-currentTweets['species']=[];currentTweets['count']=[];currentTweets['lat']=[];currentTweets['lat']=[];currentTweets['long']=[];currentTweets['ID']=[];currentTweets['description']=[];currentTweets['user']=[];currentTweets['text']=[]
+currentTweets['species']=[];currentTweets['count']=[];currentTweets['lat']=[];currentTweets['lat']=[];currentTweets['long']=[];currentTweets['ID']=[];currentTweets['description']=[];currentTweets['user']=[];currentTweets['text']=[];currentTweets['timecode']=[]
 File.open("tweetLog.txt") do |f|
   f.each do |line|
     entry = line.chomp.split "^"
@@ -19,11 +19,12 @@ File.open("tweetLog.txt") do |f|
     currentTweets['ID'] << entry[4].to_i
     currentTweets['description'] << entry[5]
     currentTweets['user'] << entry[6]
-    currentTweets['text'] << entry[7]
+    currentTweets['timecode'] << entry[7]
+    currentTweets['text'] << entry[8]
   end
 end
 
-#Pull out Will's recently sent messages
+#Pull out SilNet's recently sent messages
 tweets = Twitter.search("to:silwoodnet")
 
 #Search through for un-added 'silnet' tweets
@@ -54,8 +55,6 @@ tweets.each do |tweet|
      currentTweets['count'].push -99999
      currentTweets['description'].push "NA"
    end
-    currentTweets['user'].push tweet.from_user
-    currentTweets['ID'].push tweet.id
     if tweet.geo
       currentTweets['lat'].push tweet.geo.coordinates[0]
       currentTweets['long'].push tweet.geo.coordinates[1]
@@ -63,15 +62,18 @@ tweets.each do |tweet|
       currentTweets['lat'].push -9999999.9
       currentTweets['long'].push -9999999.9
     end
+    currentTweets['user'].push tweet.from_user
+    currentTweets['ID'].push tweet.id
+    currentTweets['timecode'].push tweet.created_at
   end
 end
 
 #Write out new set of tweets
 if currentNew != 0
-  puts "Read #{currentNew} new tweets"
+  puts "Read #{currentNew} new tweets; total tweets in memory #{currentTweets['ID'].length}"
   File.open("tweetLog.txt", 'w') do |f|
     currentTweets['ID'].each_index do |i, x|
-      f.write(currentTweets['species'][i] + '^' + currentTweets['count'][i].to_s + '^' + currentTweets['lat'][i].to_s + '^' + currentTweets['long'][i].to_s + '^' + currentTweets['ID'][i].to_s + '^' + currentTweets['description'][i] + '^' + currentTweets['user'][i] + '^' + currentTweets['text'][i] + "\n")
+      f.write(currentTweets['species'][i] + '^' + currentTweets['count'][i].to_s + '^' + currentTweets['lat'][i].to_s + '^' + currentTweets['long'][i].to_s + '^' + currentTweets['ID'][i].to_s + '^' + currentTweets['description'][i] + '^' + currentTweets['user'][i] + '^' + currentTweets['timecode'][i].to_s + '^' + currentTweets['text'][i] + "\n")
     end
   end
 else
