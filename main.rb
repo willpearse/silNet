@@ -36,6 +36,17 @@ if ARGV[0]
     end
     users = Hash[users.sort]
     Launchy.open Gchart.bar(:data => users.values.sort, :axis_with_labels => 'y', :size => '600x400')
+  elsif ARGV[0] == 'stats'
+    total = 0
+    currentTweets['lat'].each do |lat|
+      if lat > 0
+        total += 1
+      end
+    end
+      puts "Total tweets: #{currentTweets['lat'].length}"
+      puts "Total geo-cached tweets: #{total}"
+      fraction = (Float(total) / currentTweets['lat'].length)*100
+      puts "... #{fraction.round(0)}% geo-cached"
   end
 else
   #Pull out SilNet's recently sent messages
